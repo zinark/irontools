@@ -17,6 +17,7 @@ plt.style.use('fivethirtyeight')
 
 def init_jupyter ():
   !pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
+  print ("inited")
 
 def describe(df : pd.DataFrame):
   print ("describe")
