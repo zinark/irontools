@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 set_config(display='diagram')
 plt.style.use('fivethirtyeight')
+from IPython.display import display, HTML
+np.random.seed(42)
 
 def init_jupyter():
   print ("add following to your jupyter to install")
