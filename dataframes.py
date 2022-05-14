@@ -15,6 +15,9 @@ set_config(display='diagram')
 # !pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
 plt.style.use('fivethirtyeight')
 
+def init_jupyter ():
+  !pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
+
 def describe(df : pd.DataFrame):
   print ("describe")
   
