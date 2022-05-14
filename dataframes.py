@@ -6,22 +6,19 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer, make_column_selector
 from sklearn.pipeline import Pipeline, FeatureUnion
+import sklearn
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 set_config(display='diagram')
-# !pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
-!pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
 plt.style.use('fivethirtyeight')
 
 def init_jupyter():
-  
-  import sklearn
-
+  print ("add following to your jupyter to install")
+  print ("!pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap numpy pandas")
   print ("scikit-learn", sklearn.__version__)
   print ("pandas", pd.__version__)
   print ("numpy", np.__version__)
-  print ("inited")
 
 def describe(df : pd.DataFrame):
   print (len(df))
