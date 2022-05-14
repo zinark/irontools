@@ -23,5 +23,7 @@ def init_jupyter():
   print ("inited")
 
 def describe(df : pd.DataFrame):
+  print (len(df))
+  print (df.shape)
   print ("describe")
   
