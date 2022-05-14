@@ -11,10 +11,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 set_config(display='diagram')
 # !pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
+!pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
 plt.style.use('fivethirtyeight')
 
 def init_jupyter():
-  !pip install scikit-learn==1.1.0rc1 lightgbm catboost xgboost shap
+  
   import sklearn
 
   print ("scikit-learn", sklearn.__version__)
