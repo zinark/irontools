@@ -21,22 +21,26 @@ def important_feats (df : pd.DataFrame):
   features = df.select_dtypes("number").columns.tolist()
   
   w_target = widgets.Dropdown(options=features, description="target feat:")
-  w_nestimators = widgets.IntSlider(value=25, max=1000, min=25, step=25)
+  w_nestimators = widgets.IntSlider(value=25, max=300, min=25, step=25)
+  w_thresh = widgets.FloatSlider(value=0.001, max=0.9, min=0.001, step=0.1)
   w_alg = widgets.Dropdown(options=['pearson', 'kendall', 'spearman'], description="algorithm:")
 
-  def plot (target, n_estimators):
+  def plot (target, n_estimators, thresh):
     w = widgets.IntProgress(description="fitting...")
     X = df.drop(target, axis=1)
     y = df[target]
     display(w)
-    model = RandomForestRegressor(n_estimators=n_estimators, n_jobs=-1, max_depth=5)
+    model = RandomForestRegressor(n_estimators=n_estimators, n_jobs=-1, max_depth=15, max_features=5)
     model.fit(X, y)
 
     df_imp = pd.DataFrame({
       "feat" : X.columns.tolist(),
       "importance" : model.feature_importances_
     }).set_index("feat").sort_values(by="importance")
-    df_imp.plot.barh()
+
+    df_imp = df_imp[df_imp["importance"] >= thresh]
+    if (len(df_imp) > 0):
+      df_imp.plot.barh()
     w.close()
 
     
@@ -44,4 +48,7 @@ def important_feats (df : pd.DataFrame):
     
 
   
-  widgets.interact(plot, target=w_target, n_estimators=w_nestimators)
+  widgets.interact(plot, 
+  target=w_target, 
+  n_estimators=w_nestimators,
+  thresh=w_thresh)
