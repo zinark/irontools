@@ -20,6 +20,6 @@ def init():
   print ("pandas", pd.__version__)
   print ("numpy", np.__version__)
   import matplotlib.pyplot as plt
-  plt.rcParams['figure.figsize'] = (20, 4)
+  plt.rcParams['figure.figsize'] = (12, 8)
 
   

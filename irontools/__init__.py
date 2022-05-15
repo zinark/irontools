@@ -3,5 +3,6 @@
 
 import irontools.initialize
 import irontools.dataframes
+import irontools.importance
 
 
