@@ -42,13 +42,16 @@ def describe_feats(df : pd.DataFrame):
     if col in df.select_dtypes("object").columns:
       fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(12,8))
       df[[col]].value_counts().plot.barh()
-      print (df[[col]].value_counts())
+      plt.show()
+      
+      df_summary = df[[col]].value_counts().reset_index()
+      df_summary.columns = ["feat", "count"]
+      display(df_summary)
       return
     
     print ("bilinmeyen tip")
 
   widgets.interact(plot, col=w1)
-  display(w1)
 
   # @widgets.interact(which_features=which_cols)
   # def render_parent (which_features):
