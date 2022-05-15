@@ -12,6 +12,21 @@ import matplotlib.pyplot as plt
 import numpy as np
 import ipywidgets  as widgets
 
+def correlations (df : pd.DataFrame):
+  features = df.select_dtypes("number").columns.tolist()
+  w = widgets.Dropdown(options=features, description="target feat:")
+  def plot (col):
+    corr = df.corr()[col].drop(col, axis=0).sort_values()
+    display(corr)
+    corr.plot.barh(figsize=(12,8))
+  widgets.interact(plot, col=w)
+  
+
+
+
+def preprocess_categorics (df):
+  return pd.get_dummies(df)
+
 def describe_feats(df : pd.DataFrame):
   display(Markdown(f"# Data Shape {df.shape}"))
 
@@ -21,9 +36,10 @@ def describe_feats(df : pd.DataFrame):
 
   features = df.columns
   w1 = widgets.Dropdown(options=features, description="feats")
-  
+
   def plot (col):
 
+    # NUMERIC PLOTS
     if col in df.select_dtypes("number").columns:
       std = df[col].std().round(3)
       mean = df[col].mean().round(3)
@@ -38,14 +54,20 @@ def describe_feats(df : pd.DataFrame):
       # df[[col]].plot.kde(ax=axes[2])
       # plt.tight_layout()
       return
-
+    
+    # CATEGORIC PLOTS
     if col in df.select_dtypes("object").columns:
-      fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(12,8))
-      df[[col]].value_counts().plot.barh()
+      fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12,8))
+      df[[col]].value_counts().plot.barh(ax=axes[0])
+      (df[[col]].value_counts()/len(df)).plot.barh(ax=axes[1])
+      # axes[0].vline(0.5)
       plt.show()
       
       df_summary = df[[col]].value_counts().reset_index()
       df_summary.columns = ["feat", "count"]
+      df_summary["percentage"] = df_summary["count"] / len(df)
+      df_summary["percentage"] = df_summary["percentage"].round(3)
+      
       display(df_summary)
       return
     
